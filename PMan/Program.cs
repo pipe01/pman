@@ -32,6 +32,7 @@ namespace PMan
 
             if (!ExecuteCmd(cmd, new Arguments(postargs)))
             {
+                PrintError("Invalid command.");
                 PrintUsage();
             }
         }
@@ -61,7 +62,7 @@ namespace PMan
             }
             catch (Win32Exception)
             {
-                PrintError("No executable file found by \"{0}\"", args[0]);
+                PrintError("No executable file found by \"{0}\".", args[0]);
             }
 
             return true;
@@ -273,7 +274,7 @@ namespace PMan
             }
             catch (Win32Exception)
             {
-                PrintError("Access denied");
+                PrintError("Access denied.");
                 return false;
             }
             return true;
@@ -288,7 +289,7 @@ namespace PMan
             }
             catch (ArgumentException)
             {
-                PrintError("No process is running with the PID {0}", pid);
+                PrintError("No process is running with the PID {0}.", pid);
                 return false;
             }
             return true;
