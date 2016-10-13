@@ -38,7 +38,7 @@ namespace PMan
 
         private static bool CmdStart(Arguments args)
         {
-            //if (args.StrCount < 1) return false;
+            if (args.StrCount != 1) return false;
 
             ProcessStartInfo psi = new ProcessStartInfo();
             psi.FileName = args[0];
@@ -297,12 +297,13 @@ namespace PMan
             Console.WriteLine("    /N                    Only print process name");
             Console.WriteLine("    /P                    Only print process ID");
             Console.WriteLine("  winlist               List all open windows");
-            Console.WriteLine("    /N                  Only print the window name");
-            Console.WriteLine("    /H                  Only print the window HWND");
+            Console.WriteLine("    /N                    Only print the window name");
+            Console.WriteLine("    /H                    Only print the window HWND");
             Console.WriteLine("  winclose <window>     Close (not kill) the window with the specified title");
             Console.WriteLine("  wininfo <window>      Get info from the window");
-            Console.WriteLine("    /B                  Don't over-verbose (batch mode)");
+            Console.WriteLine("    /B                    Don't over-verbose (batch mode)");
             Console.WriteLine("  start <name>          Execute the specified file");
+            Console.WriteLine("    /H                    Start window hidden");
 
             Console.Write("You can replace <window> with either any window title, any window HWND (provided by the winlist command), or any process ID");
         }
