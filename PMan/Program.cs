@@ -347,6 +347,7 @@ namespace PMan
             Console.WriteLine("  wininfo <window>      Get info from the window");
             Console.WriteLine("    /B                    Don't over-verbose (batch mode)");
             Console.WriteLine("  winclose <window>     Close a window");
+            Console.WriteLine("  winmax <window>       Maximize a window");
             Console.WriteLine("  winmin <window>       Minimize a window");
             Console.WriteLine("  winnormal <window>    Show a window");
             Console.WriteLine("  start <name>          Execute the specified file");
