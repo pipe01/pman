@@ -39,7 +39,7 @@ namespace PMan
 
         private static bool CmdWin(Arguments args)
         {
-            if (args.StrCount < 1) return false;
+            //if (args.StrCount < 1) return false;
             string cmd = args[0];
 
             switch (cmd)
@@ -324,6 +324,7 @@ namespace PMan
             Console.WriteLine("  wininfo <window>      Get info from the window");
             Console.WriteLine("    /B                    Don't over-verbose (batch mode)");
             Console.WriteLine("  win close <window>    Close a window");
+            Console.WriteLine("  win minimize <window> Minimize a window");
             Console.WriteLine("  start <name>          Execute the specified file");
             Console.WriteLine("    /H                    Start window hidden");
             Console.WriteLine();
