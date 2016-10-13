@@ -39,22 +39,20 @@ namespace PMan
 
         private static bool CmdWin(Arguments args)
         {
-            //if (args.StrCount < 1) return false;
+            if (args.StrCount < 1) return false;
             string cmd = args[0];
-
+            
             switch (cmd)
             {
                 case "close":
                     OpenWindowGetter.CloseWindow(GetWindowFromString(args[1]));
-                    break;
+                    return true;
                 case "min":
                     OpenWindowGetter.ShowWindow(GetWindowFromString(args[1]), OpenWindowGetter.ShowWindowCommands.Minimize);
-                    break;
+                    return true;
                 default:
-                    break;
+                    return false;
             }
-
-            return true;
         }
 
         private static bool CmdStart(Arguments args)
