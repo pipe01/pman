@@ -38,11 +38,20 @@ namespace PMan
 
         private static bool CmdStart(Arguments args)
         {
-            if (args.StrCount != 1) return false;
+            if (args.StrCount < 1) return false;
 
             ProcessStartInfo psi = new ProcessStartInfo();
             psi.FileName = args[0];
             psi.WindowStyle = args.IsOptionSet("H") ? ProcessWindowStyle.Hidden : ProcessWindowStyle.Normal;
+
+            if (args.StrCount > 1)
+            {
+                foreach (var item in args.Strings.Skip(1))
+                {
+                    psi.Arguments += item + " ";
+                }
+            }
+
             Process p = new Process();
             p.StartInfo = psi;
 
@@ -262,7 +271,7 @@ namespace PMan
             {
                 p.Kill();
             }
-            catch (System.ComponentModel.Win32Exception)
+            catch (Win32Exception)
             {
                 PrintError("Access denied");
                 return false;
