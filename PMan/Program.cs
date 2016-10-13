@@ -296,6 +296,7 @@ namespace PMan
 
         static void PrintUsage()
         {
+            Console.WriteLine("PMan by pipe01");
             Console.WriteLine("Usage: pman <command> <argument1> <argument2> ...");
             Console.WriteLine("Available commands:");
             Console.WriteLine("  pkill <pid>           Kill the process with the specified process ID");
