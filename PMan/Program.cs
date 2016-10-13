@@ -31,6 +31,7 @@ namespace PMan
             cmds.Add("winclose", CmdWinClose);
             cmds.Add("winmax", CmdWinMax);
             cmds.Add("winnormal", CmdWinNormal);
+            cmds.Add("winshow", CmdWinShow);
             cmds.Add("start", CmdStart);
 
             if (!ExecuteCmd(cmd, new Arguments(postargs)))
@@ -38,6 +39,17 @@ namespace PMan
                 PrintError("Invalid command.");
                 PrintUsage();
             }
+        }
+
+        private static bool CmdWinShow(Arguments args)
+        {
+            if (args.StrCount != 1) return false;
+            if (!OpenWindowGetter.ShowWindow(GetWindowFromString(args[0]), OpenWindowGetter.ShowWindowCommands.Show))
+            {
+                PrintError("Couldn't show window");
+                return false;
+            }
+            return true;
         }
 
         private static bool CmdWinNormal(Arguments args)
@@ -349,7 +361,8 @@ namespace PMan
             Console.WriteLine("  winclose <window>     Close a window");
             Console.WriteLine("  winmax <window>       Maximize a window");
             Console.WriteLine("  winmin <window>       Minimize a window");
-            Console.WriteLine("  winnormal <window>    Show a window");
+            Console.WriteLine("  winnormal <window>    Normalize (?) a window");
+            Console.WriteLine("  winshow <window>      Show a window");
             Console.WriteLine("  start <name>          Execute the specified file");
             Console.WriteLine("    /H                    Start window hidden");
             Console.WriteLine();
