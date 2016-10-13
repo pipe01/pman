@@ -40,36 +40,20 @@ namespace PMan
 
         private static bool CmdWinClose(Arguments args)
         {
-            throw new NotImplementedException();
+            if (args.StrCount != 1) return false;
+            OpenWindowGetter.CloseWindow(GetWindowFromString(args[0]));
+            return true;
         }
 
         private static bool CmdWinMin(Arguments args)
         {
             if (args.StrCount != 1) return false;
-            if (!OpenWindowGetter.ShowWindow(GetWindowFromString(args[1]), OpenWindowGetter.ShowWindowCommands.Minimize))
+            if (!OpenWindowGetter.ShowWindow(GetWindowFromString(args[0]), OpenWindowGetter.ShowWindowCommands.Minimize))
             {
                 PrintError("Couldn't minimize window");
                 return false;
             }
             return true;
-        }
-
-        private static bool CmdWin(Arguments args)
-        {
-            if (args.StrCount < 1) return false;
-            string cmd = args[0];
-            
-            switch (cmd)
-            {
-                case "close":
-                    OpenWindowGetter.CloseWindow(GetWindowFromString(args[1]));
-                    return true;
-                case "min":
-                    OpenWindowGetter.ShowWindow(GetWindowFromString(args[1]), OpenWindowGetter.ShowWindowCommands.Minimize);
-                    return true;
-                default:
-                    return false;
-            }
         }
 
         private static bool CmdStart(Arguments args)
