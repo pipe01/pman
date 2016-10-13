@@ -27,7 +27,7 @@ namespace PMan
             cmds.Add("plist", CmdPList);
             cmds.Add("winlist", CmdWinList);
             cmds.Add("wininfo", CmdWinInfo);
-            cmds.Add("winclose", CmdWinClose);
+            cmds.Add("win", CmdWin);
             cmds.Add("start", CmdStart);
 
             if (!ExecuteCmd(cmd, new Arguments(postargs)))
@@ -35,6 +35,26 @@ namespace PMan
                 PrintError("Invalid command.");
                 PrintUsage();
             }
+        }
+
+        private static bool CmdWin(Arguments args)
+        {
+            if (args.StrCount < 1) return false;
+            string cmd = args[0];
+
+            switch (cmd)
+            {
+                case "close":
+                    OpenWindowGetter.CloseWindow(GetWindowFromString(args[1]));
+                    break;
+                case "min":
+                    OpenWindowGetter.ShowWindow(GetWindowFromString(args[1]), OpenWindowGetter.ShowWindowCommands.Minimize);
+                    break;
+                default:
+                    break;
+            }
+
+            return true;
         }
 
         private static bool CmdStart(Arguments args)
@@ -73,20 +93,11 @@ namespace PMan
         {
             bool e = cmds.ContainsKey(cmd);
             if (e)
-                cmds[cmd].Invoke(args);
+                e = cmds[cmd].Invoke(args);
             return e;
         }
 
         #region Window man
-        private static bool CmdWinClose(Arguments args)
-        {
-            if (args.StrCount == 1)
-            {
-                OpenWindowGetter.CloseWindow(GetWindowFromString(args[0]));
-            }
-            return true;
-        }
-
         private static bool CmdWinList(Arguments args)
         {
             var wins = OpenWindowGetter.GetOpenWindows();
@@ -310,9 +321,9 @@ namespace PMan
             Console.WriteLine("  winlist               List all open windows");
             Console.WriteLine("    /N                    Only print the window name");
             Console.WriteLine("    /H                    Only print the window HWND");
-            Console.WriteLine("  winclose <window>     Close (not kill) the window with the specified title");
             Console.WriteLine("  wininfo <window>      Get info from the window");
             Console.WriteLine("    /B                    Don't over-verbose (batch mode)");
+            Console.WriteLine("  win close <window>    Close a window");
             Console.WriteLine("  start <name>          Execute the specified file");
             Console.WriteLine("    /H                    Start window hidden");
             Console.WriteLine();
