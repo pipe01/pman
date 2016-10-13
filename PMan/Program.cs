@@ -314,6 +314,7 @@ namespace PMan
             Console.WriteLine("    /B                    Don't over-verbose (batch mode)");
             Console.WriteLine("  start <name>          Execute the specified file");
             Console.WriteLine("    /H                    Start window hidden");
+            Console.WriteLine();
 
             Console.Write("You can replace <window> with either any window title, any window HWND (provided by the winlist command), or any process ID");
         }
