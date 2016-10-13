@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
@@ -37,14 +38,22 @@ namespace PMan
 
         private static bool CmdStart(Arguments args)
         {
-            if (args.StrCount < 1) return false;
+            //if (args.StrCount < 1) return false;
 
             ProcessStartInfo psi = new ProcessStartInfo();
             psi.FileName = args[0];
             psi.WindowStyle = args.IsOptionSet("H") ? ProcessWindowStyle.Hidden : ProcessWindowStyle.Normal;
             Process p = new Process();
             p.StartInfo = psi;
-            p.Start();
+
+            try
+            {
+                p.Start();
+            }
+            catch (Win32Exception)
+            {
+                PrintError("No executable file found by \"{0}\"", args[0]);
+            }
 
             return true;
         }
@@ -293,6 +302,7 @@ namespace PMan
             Console.WriteLine("  winclose <window>     Close (not kill) the window with the specified title");
             Console.WriteLine("  wininfo <window>      Get info from the window");
             Console.WriteLine("    /B                  Don't over-verbose (batch mode)");
+            Console.WriteLine("  start <name>          Execute the specified file");
 
             Console.Write("You can replace <window> with either any window title, any window HWND (provided by the winlist command), or any process ID");
         }
