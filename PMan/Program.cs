@@ -27,7 +27,8 @@ namespace PMan
             cmds.Add("plist", CmdPList);
             cmds.Add("winlist", CmdWinList);
             cmds.Add("wininfo", CmdWinInfo);
-            cmds.Add("win", CmdWin);
+            cmds.Add("winmin", CmdWinMin);
+            cmds.Add("winclose", CmdWinClose);
             cmds.Add("start", CmdStart);
 
             if (!ExecuteCmd(cmd, new Arguments(postargs)))
@@ -35,6 +36,22 @@ namespace PMan
                 PrintError("Invalid command.");
                 PrintUsage();
             }
+        }
+
+        private static bool CmdWinClose(Arguments args)
+        {
+            throw new NotImplementedException();
+        }
+
+        private static bool CmdWinMin(Arguments args)
+        {
+            if (args.StrCount != 1) return false;
+            if (!OpenWindowGetter.ShowWindow(GetWindowFromString(args[1]), OpenWindowGetter.ShowWindowCommands.Minimize))
+            {
+                PrintError("Couldn't minimize window");
+                return false;
+            }
+            return true;
         }
 
         private static bool CmdWin(Arguments args)
