@@ -29,6 +29,8 @@ namespace PMan
             cmds.Add("wininfo", CmdWinInfo);
             cmds.Add("winmin", CmdWinMin);
             cmds.Add("winclose", CmdWinClose);
+            cmds.Add("winmax", CmdWinMax);
+            cmds.Add("winnormal", CmdWinNormal);
             cmds.Add("start", CmdStart);
 
             if (!ExecuteCmd(cmd, new Arguments(postargs)))
@@ -36,6 +38,28 @@ namespace PMan
                 PrintError("Invalid command.");
                 PrintUsage();
             }
+        }
+
+        private static bool CmdWinNormal(Arguments args)
+        {
+            if (args.StrCount != 1) return false;
+            if (!OpenWindowGetter.ShowWindow(GetWindowFromString(args[0]), OpenWindowGetter.ShowWindowCommands.Normal))
+            {
+                PrintError("Couldn't show window");
+                return false;
+            }
+            return true;
+        }
+
+        private static bool CmdWinMax(Arguments args)
+        {
+            if (args.StrCount != 1) return false;
+            if (!OpenWindowGetter.ShowWindow(GetWindowFromString(args[0]), OpenWindowGetter.ShowWindowCommands.Maximize))
+            {
+                PrintError("Couldn't maximize window");
+                return false;
+            }
+            return true;
         }
 
         private static bool CmdWinClose(Arguments args)
@@ -322,8 +346,8 @@ namespace PMan
             Console.WriteLine("    /H                    Only print the window HWND");
             Console.WriteLine("  wininfo <window>      Get info from the window");
             Console.WriteLine("    /B                    Don't over-verbose (batch mode)");
-            Console.WriteLine("  winclose <window>    Close a window");
-            Console.WriteLine("  winmin <window> Minimize a window");
+            Console.WriteLine("  winclose <window>     Close a window");
+            Console.WriteLine("  winmin <window>       Minimize a window");
             Console.WriteLine("  start <name>          Execute the specified file");
             Console.WriteLine("    /H                    Start window hidden");
             Console.WriteLine();
